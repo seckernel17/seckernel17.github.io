@@ -74,22 +74,24 @@
     block.prepend(button);
   });
   document.querySelectorAll('[data-gif]').forEach(button => {
-    const stage = document.getElementById(button.getAttribute('aria-controls'));
-    if (!stage) return;
-    button.addEventListener('click', () => {
-      const play = button.getAttribute('aria-expanded') !== 'true';
-      stage.replaceChildren();
-      if (play) {
-        const picture = document.createElement('img');
-        picture.src = button.dataset.gif;
-        picture.alt = 'Dimitri celebrating a small lab victory.';
-        picture.width = Number(button.dataset.width);
-        picture.height = Number(button.dataset.height);
-        stage.append(picture);
-      }
-      button.setAttribute('aria-expanded', String(play));
-      button.textContent = play ? 'Stop GIF' : 'Play Dimitri GIF';
-    });
+    const image = document.getElementById(button.getAttribute('aria-controls'));
+    if (!image || image.tagName !== 'IMG' || !button.dataset.still) return;
+    const reducedSource = image.closest('picture')?.querySelector('source');
+    const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
+    let playing;
+    const setPlaying = next => {
+      playing = next;
+      const source = playing ? button.dataset.gif : button.dataset.still;
+      // Keep the picture fallback in sync, including an explicit Play override.
+      if (reducedSource) reducedSource.srcset = source;
+      if (image.getAttribute('src') !== source) image.setAttribute('src', source);
+      button.textContent = playing ? 'Pause animation' : 'Play animation';
+    };
+    button.addEventListener('click', () => setPlaying(!playing));
+    const followPreference = () => setPlaying(!preference.matches);
+    if (preference.addEventListener) preference.addEventListener('change', followPreference);
+    else if (preference.addListener) preference.addListener(followPreference);
+    followPreference();
   });
   const progress = document.querySelector('.progress-bar');
   if (progress) {
