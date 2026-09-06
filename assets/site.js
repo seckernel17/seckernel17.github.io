@@ -111,11 +111,12 @@
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
   if ('IntersectionObserver' in window && typeof Element.prototype.animate === 'function') {
     const selector = [
-      '.section-heading', '.split > .prose', '.split > h2',
-      '.split > div > h2', '.work-card', '.qualification-card',
-      '.credential', '.timeline > li', '.personal-photo', '.personal-humour',
-      '.email-card', '.article-content > h2', '.article-figure', '.code-block'
+      'main h2', 'main h3', 'main p', 'main .actions',
+      '.work-card', '.qualification-card', '.credential', '.timeline > li',
+      '.personal-photo', '.personal-humour', '.email-card',
+      '.article-figure', '.code-block'
     ].join(', ');
+    // Reveal paragraphs separately, but keep cards and their contents together.
     const targets = [...document.querySelectorAll(selector)].filter(
       element => !element.parentElement?.closest(selector)
     );
@@ -131,18 +132,26 @@
       stopMotion();
       if (reducedMotion.matches) return;
       observer = new IntersectionObserver(entries => {
-        for (const entry of entries) {
-          if (!entry.isIntersecting) continue;
+        const arriving = entries
+          .filter(entry => entry.isIntersecting && !seen.has(entry.target))
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+        let sequence = 0;
+        for (const entry of arriving) {
           const element = entry.target;
           observer.unobserve(element);
-          if (seen.has(element)) continue;
           seen.add(element);
           // Deep links, restored scroll positions and focused controls stay still.
           if (reducedMotion.matches || document.hidden || entry.boundingClientRect.top < 96 || element.contains(document.activeElement)) continue;
           const animation = element.animate([
-            { opacity: 0.4, transform: 'translate3d(0, 14px, 0)' },
+            { opacity: 0, transform: 'translate3d(0, 20px, 0)' },
             { opacity: 1, transform: 'translate3d(0, 0, 0)' }
-          ], { duration: 480, easing: 'cubic-bezier(0.22, 1, 0.36, 1)' });
+          ], {
+            duration: 680,
+            delay: 70 + Math.min(sequence++, 2) * 70,
+            easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
+            // Apply the first frame during the short stagger, then release all styles.
+            fill: 'backwards'
+          });
           active.set(element, animation);
           animation.onfinish = animation.oncancel = () => active.delete(element);
         }
