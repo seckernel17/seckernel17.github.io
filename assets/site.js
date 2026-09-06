@@ -125,6 +125,22 @@
     const seen = new WeakSet();
     const active = new Map();
     let observer;
+    const entrance = (element, bounds) => {
+      const viewportWidth = document.documentElement.clientWidth;
+      const compact = viewportWidth <= 720;
+      const heading = element.tagName === 'H2' || element.tagName === 'H3';
+      const paragraph = element.tagName === 'P';
+      const distance = compact ? 12 : 28;
+      let x = 0;
+      // Keep lateral movement inside the viewport, including at narrow widths.
+      if (heading) x = -Math.min(distance, Math.max(0, bounds.left - 8));
+      else if (paragraph) x = Math.min(distance, Math.max(0, viewportWidth - bounds.right - 8));
+      const y = heading || paragraph ? (compact ? 6 : 10) : (compact ? 14 : 24);
+      return {
+        transform: `translate3d(${x}px, ${y}px, 0)`,
+        duration: compact ? 560 : heading ? 760 : 700
+      };
+    };
     const stopMotion = () => {
       observer?.disconnect();
       active.forEach(animation => animation.cancel());
@@ -136,7 +152,7 @@
       observer = new IntersectionObserver(entries => {
         const arriving = entries
           .filter(entry => entry.isIntersecting && !seen.has(entry.target))
-          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
+          .sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top || a.boundingClientRect.left - b.boundingClientRect.left);
         let sequence = 0;
         for (const entry of arriving) {
           const element = entry.target;
@@ -144,12 +160,13 @@
           seen.add(element);
           // Deep links, restored scroll positions and focused controls stay still.
           if (reducedMotion.matches || document.hidden || entry.boundingClientRect.top < 96 || element.contains(document.activeElement)) continue;
+          const motion = entrance(element, entry.boundingClientRect);
           const animation = element.animate([
-            { opacity: 0, transform: 'translate3d(0, 20px, 0)' },
+            { opacity: 0, transform: motion.transform },
             { opacity: 1, transform: 'translate3d(0, 0, 0)' }
           ], {
-            duration: 680,
-            delay: 70 + Math.min(sequence++, 2) * 70,
+            duration: motion.duration,
+            delay: 60 + Math.min(sequence++, 3) * 60,
             easing: 'cubic-bezier(0.22, 1, 0.36, 1)',
             // Apply the first frame during the short stagger, then release all styles.
             fill: 'backwards'
