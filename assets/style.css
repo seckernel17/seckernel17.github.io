@@ -45,3 +45,20 @@
   @media(prefers-reduced-motion:reduce){:root{scroll-behavior:auto}*,*::before,*::after{animation:none!important;transition:none!important}.work-card:hover{transform:none}@view-transition{navigation:none}::view-transition-group(*),::view-transition-old(*),::view-transition-new(*){animation:none!important}}
   @media print{body{background-image:none}:root{color-scheme:light;--bg:#fff;--surface:#f5f5f5;--ink:#111;--muted:#444;--line:#ccc;--accent:#234e24;font-size:11pt}.site-header,.site-footer,.article-nav,.actions,.progress-bar,.toast,.copy-code,.back-link{display:none!important}.container{width:100%;max-width:none}.page-heading{padding:0 0 1rem}.article-layout{display:block;padding:0}.article-content h2{break-after:avoid}.article-figure{break-inside:avoid}.article-figure img{max-height:7in}.article-content p,.article-content li{color:#111}.code-block{background:#f6f6f6}.code-block pre{color:#111;white-space:pre-wrap;padding:1rem}.page-heading h1{font-size:30pt}.section,.page-body{padding-block:1rem}.work-grid{grid-template-columns:1fr 1fr}}
 }
+
+@layer utilities {
+  .contact-layout{grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);align-items:start}
+  .email-card h2.eyebrow{line-height:1.5;font-weight:500;color:var(--accent)}
+  .key-details{margin-top:.75rem}
+  .key-details summary{width:fit-content;max-width:100%;min-height:44px;align-content:center;color:var(--ink);text-decoration:underline;text-underline-offset:.23em;cursor:pointer;font-size:.9rem}
+  .key-details code{display:block;margin:.3rem 0 .6rem;max-width:37ch;line-height:1.7;color:var(--ink);user-select:all}
+  @media(max-width:960px){
+    :root:not(.js) .site-header{position:static}
+    .js .navigation.is-open{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.15rem .4rem;max-height:calc(100dvh - 5rem);overflow-y:auto}
+    .js .navigation.is-open a{display:flex;justify-content:center;align-items:center;min-height:44px;padding:.55rem .2rem;text-align:center}
+    .js .navigation.is-open .nav-contact{gap:.35rem}
+  }
+  @media(max-width:760px){.contact-layout{grid-template-columns:minmax(0,1fr)}}
+  @media(max-width:420px){.js .navigation.is-open{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media print{.skip-link,.menu-toggle,.key-details{display:none!important}}
+}

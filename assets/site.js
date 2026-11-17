@@ -18,6 +18,10 @@
     }
   });
   nav?.addEventListener('click', event => { if (event.target.closest('a')) closeMenu(); });
+  const header = toggle?.closest('.header-inner');
+  header?.addEventListener('focusout', event => {
+    if (event.relatedTarget && !header.contains(event.relatedTarget)) closeMenu();
+  });
   document.addEventListener('click', event => {
     if (!event.target.closest('.header-inner')) closeMenu();
   });
@@ -41,9 +45,11 @@
     area.value = text; area.setAttribute('readonly', '');
     area.className = 'clipboard-buffer';
     document.body.append(area); area.select();
-    const copied = document.execCommand('copy');
-    area.remove(); previous?.focus();
-    if (!copied) throw new Error('Clipboard unavailable');
+    try {
+      if (!document.execCommand('copy')) throw new Error('Clipboard unavailable');
+    } finally {
+      area.remove(); previous?.focus({ preventScroll: true });
+    }
   }
   document.querySelectorAll('[data-copy-email]').forEach(button => {
     button.addEventListener('click', async () => {
@@ -60,7 +66,7 @@
   document.querySelectorAll('[data-copy-pgp]').forEach(button => {
     button.addEventListener('click', async () => {
       try { await copyText(button.dataset.copyPgp); announce('Full PGP fingerprint copied.'); }
-      catch { announce('Open the public key to view and copy its fingerprint.'); }
+      catch { announce('Choose “Show full fingerprint” to select and copy it.'); }
     });
   });
   document.querySelectorAll('.code-block').forEach(block => {
@@ -120,7 +126,7 @@
     ].join(', ');
     // Reveal paragraphs separately, but keep cards and their contents together.
     const targets = [...document.querySelectorAll(selector)].filter(
-      element => !element.parentElement?.closest(selector)
+      element => !element.closest('.trace-controls') && !element.parentElement?.closest(selector)
     );
     const seen = new WeakSet();
     const active = new Map();
