@@ -6,47 +6,14 @@
         <p class="folio-label"><span aria-hidden="true"></span>Security operations portfolio</p>
         <h1 id="profile-title">Joni <span>Makkonen.</span></h1>
         <p class="role-line">Senior Cyber Security Analyst</p>
+      </div>
+      <div class="intro-summary">
         <p class="intro-text">I lead daily security operations and investigate incidents. My job is to work out what happened, decide what needs attention first and help the next analyst pick up the trail.</p>
         <div class="actions">
-          <a class="button primary" href="#selected-work">Explore my work <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6"/></svg></a>
+          <a class="button primary" href="#selected-work">Explore the writeups <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M12 4v15m-6-6 6 6 6-6"/></svg></a>
           <a class="button" href="contact.html">Get in touch <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
         </div>
       </div>
-      <figure class="trace-figure" aria-labelledby="trace-title">
-        <figcaption>
-          <span class="trace-kicker"><span class="trace-index">Fig. 01</span> Illustrative timeline</span>
-          <h2 id="trace-title">One alert, three traces.</h2>
-        </figcaption>
-        <fieldset class="trace-controls">
-          <legend class="sr-only">Choose a source to explore</legend>
-          <input type="radio" name="trace" id="trace-identity" class="sr-only" checked>
-          <label for="trace-identity">Identity</label>
-          <input type="radio" name="trace" id="trace-endpoint" class="sr-only">
-          <label for="trace-endpoint">Endpoint</label>
-          <input type="radio" name="trace" id="trace-network" class="sr-only">
-          <label for="trace-network">Network</label>
-          <div class="trace-plot" aria-hidden="true">
-            <svg viewBox="0 0 420 129" preserveAspectRatio="xMidYMid meet" focusable="false">
-              <defs>
-                <pattern id="trace-grid" width="28" height="20" patternUnits="userSpaceOnUse"><circle cx="1" cy="1" r=".85" fill="#516254"/></pattern>
-              </defs>
-              <rect width="420" height="129" fill="url(#trace-grid)"/>
-              <g class="trace-guides"><path d="M2 26H418M2 61H418M2 96H418"/><path stroke-dasharray="2 5" d="M88 5V112M215 5V112M330 5V112"/></g>
-              <path class="trace-path" d="M88 26C143 26 158 61 215 61S281 96 330 96"/>
-              <g class="trace-dust"><path d="M29 22v8m18-8v8m94-8v8m28-8v8m157-8v8m33-8v8m45-8v8M18 57v8m48-8v8m77-8v8m160-8v8m28-8v8m48-8v8M39 92v8m46-8v8m111-8v8m48-8v8m125-8v8"/></g>
-              <g class="mark mark-identity"><circle class="halo" cx="88" cy="26" r="12"/><path class="core" d="m88 20 6 6-6 6-6-6Z"/></g>
-              <g class="mark mark-endpoint"><circle class="halo" cx="215" cy="61" r="12"/><rect class="core" x="210" y="56" width="10" height="10" rx="1"/></g>
-              <g class="mark mark-network"><circle class="halo" cx="330" cy="96" r="12"/><circle class="core" cx="330" cy="96" r="5.5"/></g>
-              <g class="trace-ticks"><text x="88" y="124">+00s</text><text x="215" y="124">+06s</text><text x="330" y="124">+12s</text></g>
-            </svg>
-          </div>
-          <div class="trace-reading" aria-live="polite" aria-atomic="true">
-            <p class="finding finding-identity"><strong>+00s · Account sign-in</strong>A sign-in gives me a starting point: which account was used, and from which device?</p>
-            <p class="finding finding-endpoint"><strong>+06s · Process start</strong>Six seconds later, a process starts on the device. Its parent process helps explain why it ran.</p>
-            <p class="finding finding-network"><strong>+12s · Network connection</strong>The device then contacts a destination. I check which process opened the connection before linking the events.</p>
-          </div>
-        </fieldset>
-      </figure>
     </div>
     <section class="qual-rail" aria-labelledby="rail-title">
       <div class="rail-intro"><h2 id="rail-title">Qualifications</h2><a href="certificates.html">View all <span aria-hidden="true">→</span></a></div>
@@ -59,12 +26,12 @@
   <section id="selected-work" class="folio-section container" aria-labelledby="work-title">
     <div class="folio-section-head">
       <div><span class="folio-label"><span aria-hidden="true"></span>01 / Selected lab work</span><h2 id="work-title">Investigation notes.</h2></div>
-      <p>Three examples from my lab notebook. Each writeup follows the evidence and includes the original screenshots.</p>
+      <p>Three labs, three investigation skills: assessing recovery risks, tracing account privileges and connecting evidence across sources.</p>
     </div>
     <div class="case-index">
-      <a class="case-row" href="writeups/intelligence.html"><span class="case-no">01</span><span class="case-title"><small>Hack The Box</small><strong>Intelligence</strong></span><span class="case-question">What can a collection of PDFs tell you about the accounts and services in a domain?</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
-      <a class="case-row" href="writeups/monteverde.html"><span class="case-no">02</span><span class="case-title"><small>Hack The Box</small><strong>Monteverde</strong></span><span class="case-question">A look at password reuse and the trust placed in an identity synchronization account.</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
-      <a class="case-row" href="writeups/cascade.html"><span class="case-no">03</span><span class="case-title"><small>Hack The Box</small><strong>Cascade</strong></span><span class="case-question">What a backup and a deleted directory record can reveal about the history of an account.</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+      <a class="case-row" href="writeups/ad-persistence.html"><span class="case-no" aria-hidden="true">01</span><span class="case-title"><small>Incident recovery</small><strong>Active Directory Persistence</strong></span><span class="case-question">I examine why changing a password may not be enough to remove access, and what certificates and directory permissions mean for recovery.</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+      <a class="case-row" href="writeups/monteverde.html"><span class="case-no" aria-hidden="true">02</span><span class="case-title"><small>Hybrid identity</small><strong>Monteverde</strong></span><span class="case-question">I trace how a reused password in a file share exposed a synchronization account, then examine why that account’s privileges mattered.</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
+      <a class="case-row" href="writeups/intelligence.html"><span class="case-no" aria-hidden="true">03</span><span class="case-title"><small>Evidence analysis</small><strong>Intelligence</strong></span><span class="case-question">I connect clues from public documents, DNS activity and delegated permissions to explain which accounts and services trust one another.</span><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
     </div>
     <a class="text-link folio-link" href="writeups.html">Browse all seven writeups <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 12h15m-6-6 6 6-6 6"/></svg></a>
   </section>

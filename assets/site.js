@@ -126,7 +126,7 @@
     ].join(', ');
     // Reveal paragraphs separately, but keep cards and their contents together.
     const targets = [...document.querySelectorAll(selector)].filter(
-      element => !element.closest('.trace-controls') && !element.parentElement?.closest(selector)
+      element => !element.parentElement?.closest(selector)
     );
     const seen = new WeakSet();
     const active = new Map();
